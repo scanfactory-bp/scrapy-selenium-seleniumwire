@@ -6,6 +6,7 @@ from scrapy import signals
 from scrapy.exceptions import NotConfigured
 from scrapy.http import HtmlResponse
 from selenium.webdriver.support.ui import WebDriverWait
+from seleniumwire.webdriver import Chrome, ChromeOptions
 
 from .http import SeleniumRequest
 
@@ -31,15 +32,8 @@ class SeleniumMiddleware:
             Selenium remote server endpoint
         """
 
-        webdriver_base_path = f'selenium.webdriver.{driver_name}'
-
-        driver_klass_module = import_module(f'{webdriver_base_path}.webdriver')
-        driver_klass = getattr(driver_klass_module, 'WebDriver')
-
-        driver_options_module = import_module(f'{webdriver_base_path}.options')
-        driver_options_klass = getattr(driver_options_module, 'Options')
-
-        driver_options = driver_options_klass()
+        driver_klass = Chrome
+        driver_options_klass = ChromeOptions
 
         if browser_executable_path:
             driver_options.binary_location = browser_executable_path
