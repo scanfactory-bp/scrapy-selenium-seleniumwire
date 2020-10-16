@@ -34,6 +34,7 @@ class SeleniumMiddleware:
 
         driver_klass = Chrome
         driver_options_klass = ChromeOptions
+        driver_options = driver_options_klass()
 
         if browser_executable_path:
             driver_options.binary_location = browser_executable_path
